@@ -1,0 +1,13 @@
+﻿@Scripts.Render("~/bundles/goalTrackingModelPopupJs")
+<script type="text/ng-template" id="modalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Delete Message</h3>
+    </div>
+    <div class="modal-body">
+       <h3>{{data.message}}</h3>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="accept(data.index)">Yes</button>
+        <button class="btn btn-warning" ng-click="reject()">No</button>
+    </div>
+</script>

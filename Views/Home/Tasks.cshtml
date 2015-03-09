@@ -1,0 +1,7 @@
+﻿@model DataAccessLayer.employeeDetail
+    @section SPAViews {
+        @Html.Partial("_Goals")
+    }
+    @section Scripts{
+        <script type="text/javascript">var jsonEmployee = { employeeDetailID: '@Model.ID', employeeName: '@Model.EmployeeName', startDate: '@Model.StartDate', endDate: '@Model.EndDate' }</script>
+    }

@@ -1,0 +1,15 @@
+﻿@Styles.Render("~/Content/circularProgress")
+<div class="circular-Progress-wrapper">
+    <div class="circular-Progress">{{totalPercentage || 0}}/100</div>
+    <div round-progress
+         max="100"
+         current="totalPercentage"
+         color="{{foreColor}}"
+         bgcolor="#eaeaea"
+         radius="60"
+         stroke="15"
+         semi="false"
+         rounded="true"
+         iterations="50"
+         animation="easeInOutQuart"></div>
+</div>

@@ -1,0 +1,109 @@
+﻿<div class="container" ng-controller="goalController">
+    <div class="panel panel-primary margintop20">
+        <div class="panel-heading">Goals</div>
+        <div class="row margintop20 marginltrt20">
+            <div class="col-xs-12 col-md-10 col-sm-12">
+                <h1 class="text-center">{{EmployeeDetail.employeeName}}</h1>
+                <section class="form-inline" style="text-align:center;">
+                    <div class="form-group marginltrt20">
+                        <label class="control-label">Start Date: </label>
+                        <label class="control-label">{{EmployeeDetail.startDate |  date: 'shortDate' }}</label>
+                    </div>
+                    <div class="form-group marginltrt20">
+                        <label class="control-label">End Date: </label>
+                        <label class="control-label">{{EmployeeDetail.endDate  |  date: 'shortDate'}}</label>
+                    </div>
+                    <div class="form-group marginltrt20">
+                        <label class="control-label">Days Remaining: </label>
+                        <label class="control-label">{{EmployeeDetail.remainingDays}}</label>
+                    </div>
+                </section>
+                <hr />
+            </div>
+            <div class="col-xs-12 col-md-2 col-sm-12">
+                @Html.Partial("~/Views/Shared/_CircularProgress.cshtml")
+            </div>
+        </div>
+        <div class="row margintop20 marginltrt20">
+            <div class="col-sm-12">
+                <div class="form-group marginltrt20">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="search.$">
+                </div>
+            </div>
+        </div>
+        <div class="row margintop20 marginltrt20">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-condensed table-bordered no-select">
+                        <thead class="btn-primary">
+                            <tr>
+                                <th width="3%">S.no.</th>
+                                <th>Goal</th>
+                                <th width="20%">Accomplish</th>
+                                <th width="5%">Finished</th>
+                                <th width="20%">Finished (%)</th>
+                                <th width="15%">Weightage (%)</th>
+                                <th ng-if="EmployeeDetail.remainingDays > 0">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-keyup="saveRow($event, $index)" ng-repeat="goal in goals | filter:search" ng-class="{exceedRemainingDays: (EmployeeDetail.remainingDays <= 0 && goal.Finished < 100), isInactiveEmployee: (EmployeeDetail.remainingDays <= 0 && !goal.IsActive && goal.Finished == 100) }">
+                                <td>
+                                    <section class="overlay" ng-if="goal.IsActive" ng-show="!rowform.$visible" ng-dblclick="editRow(rowform, $index)"></section>
+                                    {{$index + 1}}
+                                </td>
+                                <td>
+                                    <span buttons="no" e-form="rowform" ng-maxlength="4000" e-name="task" e-required="Task" ng-model="goal.Task" editable-text="goal.Task">{{goal.Task || 'Add New Goal'}}</span>
+                                </td>
+                                <td>
+                                    <div id="slider">
+                                        <span class="bar" e-form="rowform" e-name="finished" editable-range="goal.Finished" e-step="1" id="rangeinput" ng-model="goal.Finished">{{goal.Finished}}%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+                                        <input type="checkbox" name="isFinshed" ng-model="goal.IsFinished" ng-checked="goal.IsFinished" />
+                                    </form>
+                                    <input type="checkbox" name="isFinshed" ng-model="goal.IsFinished" ng-checked="goal.IsFinished" disabled ng-hide="rowform.$visible" />
+                                </td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar {{goal.ProgressBarType}}" role="progressbar" aria-valuenow="{{goal.Finished}}" aria-valu aria-valuemin="0" aria-valuemax="100" style="width: {{goal.Finished}}%;">
+                                            {{goal.Finished}}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span e-form="rowform" e-name="weightage" ng-maxlength="3" editable-number="goal.Weightage" e-min="0">{{goal.Weightage}}%</span>
+                                </td>
+                                <td width="5%" ng-if="EmployeeDetail.remainingDays > 0">
+                                    <i style="cursor:pointer;" class="glyphicon glyphicon-remove" ng-click="openDeleteModalPopup($index)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot ng-if="EmployeeDetail.remainingDays > 0">
+                            <tr ng-click="addGoal()" class="footerStyle">
+                                <td ng-if="EmployeeDetail.remainingDays > 0" colspan="7"><span>Add Goals</span></td>
+                                <td ng-if="EmployeeDetail.remainingDays <= 0" colspan="6"><span>Add Goals</span></td>
+                            </tr>
+                            <tr class="tableBorderNone">
+                                <td colspan="4"></td>
+                                <td><span style="color:black">{{totalPercentage}}%</span></td>
+                                <td>
+                                    <span ng-if="totalWeightage < 100" popover="Weightage should be 100%." popover-trigger="mouseenter" ng-class="{exceedRemainingDays: totalWeightage < 100 }">{{totalWeightage}}%</span>
+                                    <span ng-if="totalWeightage == 100" style="color:black">{{totalWeightage}}%</span>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="margintop20  marginltrt20">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/AngularTemplates/_PartialViewDeleteConfirmationBox.cshtml")
+</div>
+@Scripts.Render("~/bundles/goalTrackingTaskJs")

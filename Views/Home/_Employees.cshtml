@@ -1,0 +1,72 @@
+﻿<div class="container" ng-controller="employeeDetailController">
+    <div class="panel panel-primary margintop20">
+        <div class="panel-heading">Member Detail</div>
+        <div class="row margintop20 marginltrt20">
+            <div class="col-sm-12">
+                <div class="form-group marginltrt20">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="search.$">
+                </div>
+            </div>
+        </div>
+        <div class="row margintop20 marginltrt20">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-condensed table-bordered no-select">
+                        <thead class="btn-primary">
+                            <tr>
+                                <th>S.no.</th>
+                                <th>Member Name</th>
+                                <th>Member Code</th>
+                                <th>Goal Start Date</th>
+                                <th>Goal End Date</th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-keyup="saveRow($event, $index)" ng-repeat="employee in employeeDetails | filter: search" ng-class="{isInactiveEmployee: !employee.IsActive }">
+                                <td width="5%">
+                                    <section class="overlay" ng-if="employee.IsActive" ng-show="!rowform.$visible" ng-dblclick="editRow(rowform, $index)"></section>
+                                    {{$index + 1}}
+                                </td>
+                                <td>
+                                    <span e-form="rowform" e-name="employeeName" buttons="no" editable-text="employee.EmployeeName">{{employee.EmployeeName || 'Add New Member Name'}}</span>
+                                </td>
+                                <td width="20%">
+                                    <span e-form="rowform" e-name="employeeCode" buttons="no" editable-text="employee.EmployeeCode">{{employee.EmployeeCode || 'Add New Member Code'}}</span>
+                                </td>
+                                <td width="15%">
+                                    <span e-form="rowform" e-name="startDate" buttons="no" editable-date="employee.StartDate">{{(employee.StartDate | date: 'dd/MM/yyyy') || 'Add Goal Start Date'}}</span>
+                                </td>
+                                <td width="15%">
+                                    <span e-form="rowform" e-name="endDate" button="no" editable-date="employee.EndDate">{{employee.EndDate || 'Add Goal End Date' | date:"dd/MM/yyyy"}}</span>
+                                </td>
+                                <td width="10%">
+                                    <div class="slide-container" ng-if="employee.IsActive">
+                                        <i title="Delete" style="cursor:pointer;" class="glyphicon glyphicon-remove" ng-click="openDeleteModalPopup($index)"></i>
+                                    </div>
+                                    <div class="v-separator" ng-if="employee.ID > 0 && employee.IsActive"></div>
+                                    <div class="slide-container" ng-if="employee.ID > 0">
+                                        <img alt="Goal" title="Goal" style="cursor:pointer; z-index:9999;" src="~/Images/goal.png" width="20px" height="20px" ng-click="getTaskList($index)" />
+                                    </div>
+                                    <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline"></form>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr ng-click="addEmployeeDetail()" class="footerStyle">
+                                <td colspan="6"><span>Add Employee</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="margintop20 marginltrt20">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/AngularTemplates/_PartialViewDeleteConfirmationBox.cshtml")
+</div>
+@Scripts.Render("~/bundles/goalTrackingEmployeeDetailJs")

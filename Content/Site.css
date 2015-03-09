@@ -1,0 +1,146 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+/*Slider*/
+input[type="range"] {
+    /*-webkit-appearance: none;*/
+    background-color: black;
+    height: 2px;
+    outline: none;
+}
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        position: relative;
+        top: 0px;
+        z-index: 1;
+        width: 11px;
+        height: 11px;
+        cursor: pointer;
+        -webkit-border-radius: 40px;
+        -moz-border-radius: 40px;
+        border-radius: 40px;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
+    }
+/*End Slider*/
+
+.paddinglr0 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.marginbttm20 {
+    margin-bottom: 20px;
+}
+
+.margintop20 {
+    margin-top: 20px;
+}
+
+.marginltrt20 {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.footerStyle {
+    text-align: center;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.tableBorderNone, .tableBorderNone td {
+    border: none !important;
+}
+
+table tr th, table tbody tr td, table tfoot tr td {
+    text-align: center;
+}
+
+table tr td section.overlay {
+    background-color: transparent;
+    width: 90%;
+    height: 4rem;
+    position: absolute;
+    margin: -6px;
+}
+
+hr {
+    width: 100%;
+    border-width: 2px;
+}
+
+.slide-container {
+    text-align: center;
+    width: 25%;
+    display: inline-block;
+}
+
+.v-separator {
+    content: "";
+    display: inline-block;
+    width: 0px;
+    height: 20px;
+    border-right: 1px solid #fafafa;
+    border-left: 1px solid #b4b4b4;
+    padding: 0;
+}
+
+.black_overlayloading {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+
+.white_contentloading {
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    width: 10%;
+    height: 70px;
+    padding: 20px;
+    border: 0px solid gray;
+    background-color: transparent;
+    z-index: 1002;
+    overflow: hidden;
+}
+
+.exceedRemainingDays
+{
+    color: red;
+}
+
+.isInactiveEmployee{
+    color:lightgray;
+}
+
+.no-select
+{
+   user-select: none;
+   -o-user-select:none;
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+}

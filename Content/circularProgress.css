@@ -1,0 +1,23 @@
+﻿.circular-Progress-wrapper {
+    position: relative;
+    width: 157px;
+    font-size: 20px;
+}
+
+.circular-Progress {
+    position: absolute;
+    width: 98%;
+    height: 100%;
+    line-height: 9em;
+    font-size: 0.8em;
+    text-align: center;
+    color: #bbb;
+    font-weight: 100;
+}
+
+svg circle
+{
+    stroke-width:25px !important;   
+    fill:aliceblue;
+}
+
