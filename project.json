@@ -14,8 +14,7 @@
         "Microsoft.AspNet.WebPages":"3.2.2",
         "Microsoft.Web.Infrastructure":"1.0.0.0",
         "Respond":"1.2.0",
-        "WebGrease":"1.5.2",
-        "DataAccessLayer": ""
+        "WebGrease":"1.5.2"
     },
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5001",
