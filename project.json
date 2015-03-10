@@ -22,7 +22,7 @@
     },
 	 "frameworks": {
         "aspnet50": {
-          "bin" : { "assembly":"bin", "pdb" :"bin" }
+          "bin" : { "assembly":"bin/DataAccessLayer.dll", "pdb" :"bin/DataAccessLayer.pdb" }
         },
         "aspnetcore50": {}
   }
